@@ -184,7 +184,7 @@
         </div>
     </div>
 </div>
-@push('scripts')
+@push('form-builder-scripts')
     @if(config('form-builder.load_jquery', true))
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @endif
@@ -201,7 +201,7 @@
 
 @endpush
 
-@push('styles')
+@push('form-builder-styles')
     <!-- Select2 -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
