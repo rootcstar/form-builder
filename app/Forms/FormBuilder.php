@@ -120,7 +120,7 @@ class FormBuilder {
             return $field->toArray();
         }, $this->fields);
 
-        return view('form-builder::general.form-builder.form-wrapper', [
+        return view('form-builder::form-wrapper', [
             'form' => $this->form
         ]);
     }
