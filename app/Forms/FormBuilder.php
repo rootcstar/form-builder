@@ -121,7 +121,10 @@ class FormBuilder {
         }, $this->fields);
 
         return view('form-builder::form-wrapper', [
-            'form' => $this->form
+            'form' => $this->form,
+            'jquery_loaded' => defined('JQUERY_LOADED'),
+            'select2_loaded' => defined('SELECT2_LOADED'),
+            'sweetalert_loaded' => defined('SWEETALERT_LOADED')
         ]);
     }
 }
