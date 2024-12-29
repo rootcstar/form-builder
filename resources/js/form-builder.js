@@ -12,7 +12,7 @@ $(document).ready(function() {
 });
 
 // Form submission handler
-$('.form-submit').click(function () {
+$('.form-builder-form-submit').click(function () {
     const form = $(this).closest('form');
     const form_id = form.attr('id');
     const url = $(`#${form_id} #url`).val();
