@@ -8,9 +8,10 @@ class FormBuilderServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        // Load views from your package
         $this->loadViewsFrom(__DIR__.'/resources/views', 'form-builder');
 
-        // This allows users to publish your views to their own views directory
+        // Allow users to publish views if they want to customize them
         $this->publishes([
             __DIR__.'/resources/views' => resource_path('views/vendor/form-builder'),
         ], 'form-builder-views');

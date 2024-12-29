@@ -129,8 +129,8 @@ class FormBuilder
         $this->form['fields'] = array_map(function($field) {
             return $field->toArray();
         }, $this->fields);
-        return view('general.form-builder.form-wrapper', [
+
+        return view('form-builder::general.form-builder.form-wrapper', [
             'form' => $this->form
         ]);
     }
-}
