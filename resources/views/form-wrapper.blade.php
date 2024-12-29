@@ -185,42 +185,23 @@
     </div>
 </div>
 @push('scripts')
-    @if(!isset($jquery_loaded))
-        <!-- jQuery (only if not already loaded) -->
+    @if(config('form-builder.load_jquery', true))
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @endif
 
-    @if(!isset($select2_loaded))
-        <!-- Select2 (only if not already loaded) -->
+    @if(config('form-builder.load_select2', true))
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     @endif
 
-    @if(!isset($sweetalert_loaded))
-        <!-- SweetAlert2 (only if not already loaded) -->
+    @if(config('form-builder.load_sweetalert', true))
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @endif
 
-    <!-- Form Builder -->
     <script>
-        // Wrap in IIFE to avoid global scope pollution
         (function($) {
-            // Check if form builder is already initialized
-            if (window.FormBuilderInitialized) return;
-
-            // Your existing JavaScript code here, wrapped in the IIFE
-            $(function () {
-                $('.needs-validation').find('input,select,textarea,input[type=radio],input[type=tel],input[type=checkbox],input[type=time]').on('input', function () {
-                    $(this).removeClass('is-valid is-invalid')
-                        .addClass(this.checkValidity() ? 'is-valid' : 'is-invalid');
-                });
-            });
-
-            // Rest of your form-builder.js code here...
-
-            // Mark as initialized
-            window.FormBuilderInitialized = true;
-        })(jQuery); // Pass jQuery to ensure $ works
+            // Your form builder code here
+        })(jQuery.noConflict(true)); // Use noConflict to avoid conflicts
     </script>
 @endpush
 

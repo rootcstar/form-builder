@@ -17,10 +17,16 @@ class FormBuilderServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../resources/js' => public_path('vendor/form-builder/js'),
         ], 'form-builder-scripts');
+
+        $this->publishes([
+            __DIR__.'/../config/form-builder.php' => config_path('form-builder.php'),
+        ], 'form-builder-config');
     }
 
     public function register()
     {
-        //
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/form-builder.php', 'form-builder'
+        );
     }
 }
