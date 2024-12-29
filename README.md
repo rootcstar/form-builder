@@ -17,6 +17,30 @@ You can publish the views using:
 ```bash
 php artisan vendor:publish --tag=form-builder-views
 ```
+## JavaScript Integration
+
+After installing the package, publish the JavaScript assets:
+
+```bash
+php artisan vendor:publish --tag=form-builder-scripts
+```
+Make sure your layout file includes the necessary style and script sections:
+```php
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Other head elements -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    @stack('styles')
+</head>
+<body>
+    <!-- Your content -->
+    
+    @stack('scripts')
+</body>
+</html>
+```
 
 ## Usage
 
