@@ -13,12 +13,11 @@ use RootCStar\FormBuilder\Forms\Fields\CustomFieldHtml;
 use RootCStar\FormBuilder\Forms\Fields\TelephoneField;
 use RootCStar\FormBuilder\Forms\Fields\PasswordField;
 use RootCStar\FormBuilder\Forms\Fields\HiddenField;
-class FormBuilder
-{
+class FormBuilder {
     protected $form = [];
     protected $fields = []; // Add this to store field objects
-    private function __construct(string $formId, string $action, ?string $redirect = null, ?string $title = null, ?string $subtitle = null)
-    {
+
+    private function __construct(string $formId, string $action, ?string $redirect = null, ?string $title = null, ?string $subtitle = null) {
         $this->form = [
             'title' => $title,
             'subtitle' => $subtitle,
@@ -29,13 +28,11 @@ class FormBuilder
         ];
     }
 
-    public static function create(string $formId, string $action, ?string $redirect = null, ?string $title = null, ?string $subtitle = null ): self
-    {
+    public static function create(string $formId, string $action, ?string $redirect = null, ?string $title = null, ?string $subtitle = null): self {
         return new self($formId, $action, $redirect, $title, $subtitle);
     }
 
-    public function customFieldHtml(string $html, string $label = '', string $name = ''): FormField
-    {
+    public function customFieldHtml(string $html, string $label = '', string $name = ''): FormField {
 
         $field = new CustomFieldHtml($name, $label);
         $field->html($html);
@@ -43,8 +40,7 @@ class FormBuilder
         return $field;
     }
 
-    public function submitButton(string $text = 'Submit', string $class = 'btn-primary'): self
-    {
+    public function submitButton(string $text = 'Submit', string $class = 'btn-primary'): self {
         $this->form['submit-button'] = [
             'text' => $text,
             'class' => $class
@@ -52,81 +48,75 @@ class FormBuilder
         return $this;
     }
 
-    public function textField(string $name, string $label): FormField
-    {
+    public function textField(string $name, string $label): FormField {
         $field = new TextField($name, $label);
         $this->fields[] = $field; // Store the field object instead of the array
         return $field;
     }
 
-    public function numberField(string $name, string $label): FormField
-    {
+    public function numberField(string $name, string $label): FormField {
         $field = new NumberField($name, $label);
         $this->fields[] = $field; // Store the field object instead of the array
         return $field;
     }
 
 
-    public function hiddenField(string $name, string $label): FormField
-    {
+    public function hiddenField(string $name, string $label): FormField {
         $field = new HiddenField($name, $label);
         $this->fields[] = $field;
         return $field;
     }
-    public function telephoneField(string $name, string $label): FormField
-    {
+
+    public function telephoneField(string $name, string $label): FormField {
         $field = new TelephoneField($name, $label);
         $this->fields[] = $field;
         return $field;
     }
 
-    public function passwordField(string $name, string $label): FormField
-    {
+    public function passwordField(string $name, string $label): FormField {
         $field = new PasswordField($name, $label);
         $this->fields[] = $field;
         return $field;
     }
 
-    public function selectField(string $name, string $label, ?string $selected = null): SelectField
-    {
+    public function selectField(string $name, string $label, ?string $selected = null): SelectField {
         $field = new SelectField($name, $label, $selected);
         $this->fields[] = $field; // Store the field object instead of the array
         return $field;
     }
-    public function select2Field(string $name, string $label, ?string $selected = null): Select2Field
-    {
+
+    public function select2Field(string $name, string $label, ?string $selected = null): Select2Field {
         $field = new Select2Field($name, $label, $selected);
         $this->fields[] = $field; // Store the field object instead of the array
         return $field;
     }
-    public function fileField(string $name, string $label): FileUploadField
-    {
+
+    public function fileField(string $name, string $label): FileUploadField {
         $field = new FileUploadField($name, $label);
         $this->fields[] = $field;
         return $field;
     }
-    public function textAreaField(string $name, string $label): FormField
-    {
+
+    public function textAreaField(string $name, string $label): FormField {
         $field = new TextAreaField($name, $label);
         $this->fields[] = $field;
         return $field;
     }
-    public function datePickerField(string $name, string $label): FormField
-    {
+
+    public function datePickerField(string $name, string $label): FormField {
         $field = new DatePicker($name, $label);
         $this->fields[] = $field;
         return $field;
     }
-    public function checkboxField(string $name, string $label): FormField
-    {
+
+    public function checkboxField(string $name, string $label): FormField {
         $field = new CheckBoxField($name, $label);
         $this->fields[] = $field;
         return $field;
     }
 
-    public function render()
-    {
-        $this->form['fields'] = array_map(function($field) {
+    public function render() {
+        $this->form['fields'] = array_map(function ($field) {
             return $field->toArray();
         }, $this->fields);
 
@@ -134,3 +124,4 @@ class FormBuilder
             'form' => $this->form
         ]);
     }
+}
