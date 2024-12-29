@@ -198,11 +198,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @endif
 
-    <script>
-        (function($) {
-            // Your form builder code here
-        })(jQuery.noConflict(true)); // Use noConflict to avoid conflicts
-    </script>
+
 @endpush
 
 @push('styles')
