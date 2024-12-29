@@ -32,15 +32,23 @@ Make sure your layout file includes the necessary style and script sections:
     <!-- Other head elements -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    @stack('styles')
+    @stack('form-builder-styles')
 </head>
 <body>
     <!-- Your content -->
     
-    @stack('scripts')
+    @stack('form-builder-scripts')
 </body>
 </html>
 ```
+## Publishing Configs
+
+You can publish the views using:
+
+```bash
+php artisan vendor:publish --tag=form-builder-config
+```
+
 
 ## Usage
 
