@@ -1,5 +1,5 @@
 {{-- resources/views/components/form-wrapper.blade.php --}}
-<div class="container-fluid">
+
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">{{$form['title']}}</h4>
@@ -183,7 +183,7 @@
             </form>
         </div>
     </div>
-</div>
+
 @push('form-builder-scripts')
     @if(config('form-builder.load_jquery', true))
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
