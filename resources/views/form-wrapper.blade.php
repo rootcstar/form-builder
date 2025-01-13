@@ -161,6 +161,8 @@
                                     id="{{ $field['name'] }}"
                                     name="{{ $field['name'] }}"
                                     placeholder="{{ $field['placeholder'] ?? '' }}"
+                                    {{ isset($field['min_length']) ? "minlength={$field['max_length']}" : '' }}
+                                    {{ isset($field['max_length']) ? "maxlength={$field['max_length']}" : '' }}
                                     {{ $field['required'] ? 'required' : '' }}
                                     {{ $field['disabled'] ? 'disabled' : '' }}
                                 >{{ $field['value'] ?? '' }}</textarea>

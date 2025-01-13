@@ -24,7 +24,6 @@ abstract class FormField
         $this->config['data_type'] = $data_type;
         return $this;
     }
-
     public function selected(string $selected_value = null): self
     {
         $this->config['value'] = $selected_value;
