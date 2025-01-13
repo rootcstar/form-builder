@@ -115,6 +115,8 @@
                                     type="password"
                                     class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
                                     data-type="string"
+                                    {{ isset($field['min_length']) ? "minlength={$field['max_length']}" : '' }}
+                                    {{ isset($field['max_length']) ? "maxlength={$field['max_length']}" : '' }}
                                     id="{{ $field['name'] }}"
                                     name="{{ $field['name'] }}"
                                     placeholder="{{ $field['placeholder'] ?? '' }}"
