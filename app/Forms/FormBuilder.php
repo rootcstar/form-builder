@@ -76,7 +76,6 @@ class FormBuilder {
 
     public function emailField(string $name, string $label): FormField {
         $field = new EmailField($name, $label);
-        $field->data_type('email');
         $this->fields[] = $field;
         return $field;
     }
