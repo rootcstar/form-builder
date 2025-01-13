@@ -68,7 +68,7 @@
                                     <input
                                         type="file"
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
-                                        data-type="{{ $field['data_type'] }}"
+                                        data-type="string
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}{{ isset($field['multiple']) && $field['multiple'] ? '[]' : '' }}"
                                         {{ $field['required'] ? 'required' : '' }}
@@ -97,7 +97,7 @@
                                     <input
                                         type="{{ $field['type'] }}"
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
-                                        data-type="{{ $field['data_type'] }}"
+                                        data-type="string"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}"
                                         placeholder="{{ $field['placeholder'] ?? '' }}"
@@ -110,7 +110,7 @@
                                 @case('textarea')
                                     <textarea
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
-                                        data-type="{{ $field['data_type'] }}"
+                                        data-type="string"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}"
                                         placeholder="{{ $field['placeholder'] ?? '' }}"
@@ -122,7 +122,7 @@
                                     <input
                                         type="date"
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
-                                        data-type="{{ $field['data_type'] }}"
+                                        data-type="date"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}"
                                         placeholder="{{ $field['placeholder'] ?? '' }}"
