@@ -4,7 +4,7 @@
     <div class="card-body">
         <h4 class="card-title">{{$form['title']}}</h4>
         <h5 class="card-subtitle"> {{$form['subtitle']}}</h5>
-        <form class="row g-3 needs-validation" id="{{ $form['form_id'] }}" novalidate>
+        <form class="row g-3 needs-validation-form-builder" id="{{ $form['form_id'] }}" novalidate>
             @csrf
             <input type="hidden" id="url" value="{{ $form['url'] }}">
             <input type="hidden" id="form_id" value="{{ $form['form_id'] }}">
@@ -123,7 +123,7 @@
                                 <input
                                     type="tel"
                                     class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
-                                    data-type="tel"
+                                    data-type="string"
                                     pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
                                     id="{{ $field['name'] }}"
                                     name="{{ $field['name'] }}"
@@ -237,6 +237,8 @@
     @if(config('form-builder.load_sweetalert', true))
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @endif
+
+    <script src="{{asset('js/form-builder.js')}}"></script>
 
 
 @endpush
