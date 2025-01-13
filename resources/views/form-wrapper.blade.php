@@ -119,7 +119,7 @@
                                     {{ $field['disabled'] ? 'disabled' : '' }}
                                 >
                                     @break
-                                @case('phone')
+                                @case('tel')
                                 <input
                                     type="tel"
                                     class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
