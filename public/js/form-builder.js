@@ -78,7 +78,7 @@ function form_validation(form_id) {
 
     $(`#${form_id} .input-fields`).each(function () {
         const $field = $(this);
-        const value = $field.val().trim();
+        const value = $field.val();
         const dataType = $field.data('type');
 
         // Remove previous validation states

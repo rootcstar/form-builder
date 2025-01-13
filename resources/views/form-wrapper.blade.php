@@ -54,7 +54,7 @@
                                     {{ isset($field['multiple']) && $field['multiple'] ? 'multiple' : '' }}
                                 >
                                     <option value=""
-                                            {{ isset($field['multiple']) && $field['multiple'] ? '' : 'selected' }} disabled>
+                                        {{ isset($field['multiple']) && $field['multiple'] ? '' : 'selected' }} >
                                         Select an option
                                     </option>
                                     @foreach($field['options'] as $option)
