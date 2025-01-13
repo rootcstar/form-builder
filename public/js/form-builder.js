@@ -4,8 +4,6 @@ $(function () {
         $(this).removeClass('is-valid is-invalid')
             .addClass(this.checkValidity() ? 'is-valid' : 'is-invalid');
 
-
-        alert('asdasa');
     });
 });
 
@@ -16,19 +14,16 @@ $(document).ready(function() {
 
 // Form submission handler
 $('.form-builder-form-submit').click(function () {
+
     const form = $(this).closest('form');
     const form_id = form.attr('id');
     const url = $(`#${form_id} #url`).val();
     const route = $('#redirect').val();
 
-    if (!validate_form(form_id)) {
-        Swal.fire({
-            icon: 'info',
-            title: 'Please fill out empty field !'
-        });
+    if (!form_validation(form_id)) {
+
         return;
     }
-
     const formData = new FormData();
     const fields = [];
     let tmp_array = [];
@@ -78,7 +73,7 @@ function isFileInput(input) {
     );
 }
 
-function validate_form(form_id) {
+function form_validation(form_id) {
     let is_valid = true;
 
     $(`#${form_id} .input-fields`).each(function () {
@@ -106,6 +101,7 @@ function validate_form(form_id) {
                 if (!/^-?\d+$/.test(value)) {
                     $field.addClass('is-invalid');
                     is_valid = false;
+                    title = 'Please enter an integer';
                 }
                 break;
 
@@ -114,6 +110,7 @@ function validate_form(form_id) {
                 if (!/^-?\d*\.?\d+$/.test(value)) {
                     $field.addClass('is-invalid');
                     is_valid = false;
+                    title = 'Please enter a floating point number';
                 }
                 break;
 
@@ -124,6 +121,7 @@ function validate_form(form_id) {
                 if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value)) {
                     $field.addClass('is-invalid');
                     is_valid = false;
+                    title = 'Please enter a valid email address';
                 }
                 break;
 
@@ -133,6 +131,7 @@ function validate_form(form_id) {
                 if (!/^[0-9]{10}$/.test(value)) {
                     $field.addClass('is-invalid');
                     is_valid = false;
+                    title = 'Please enter a valid phone number';
                 }
                 break;
 
@@ -142,18 +141,26 @@ function validate_form(form_id) {
                 if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
                     $field.addClass('is-invalid');
                     is_valid = false;
+                    title = 'Please enter a valid date';
                 } else {
                     // Additional check for valid date
                     const date = new Date(value);
                     if (isNaN(date.getTime())) {
                         $field.addClass('is-invalid');
                         is_valid = false;
+                        title = 'Please enter a valid date';
                     }
                 }
                 break;
         }
     });
 
+    if(!is_valid){
+        Swal.fire({
+            icon: 'info',
+            title: title
+        });
+    }
     return is_valid;
 }
 
