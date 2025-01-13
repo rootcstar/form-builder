@@ -15,14 +15,8 @@ abstract class FormField
             'disabled' => false,
             'invalid_feedback' => 'This field is required',
             'value' => null,
-            'field_warning' => null,
-            'data_type' => null,
+            'field_warning' => null
         ];
-    }
-    public function data_type(string $data_type): self
-    {
-        $this->config['data_type'] = $data_type;
-        return $this;
     }
     public function selected(string $selected_value = null): self
     {
