@@ -78,14 +78,6 @@ function form_validation(form_id) {
 
     $(`#${form_id} .input-fields`).each(function () {
         const $field = $(this);
-        if($field.val() === null) {
-            Swal.fire({
-                icon: 'info',
-                title: 'Please fill out empty field !'
-            });
-            is_valid = false;
-            return;
-        }
         const value = $field.val().trim();
         const dataType = $field.data('type');
 
