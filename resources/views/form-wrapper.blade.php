@@ -106,6 +106,46 @@
                                         {{ $field['disabled'] ? 'disabled' : '' }}
                                     >
                                     @break
+                                @case('password')
+                                <input
+                                    type="password"
+                                    class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
+                                    data-type="string"
+                                    id="{{ $field['name'] }}"
+                                    name="{{ $field['name'] }}"
+                                    placeholder="{{ $field['placeholder'] ?? '' }}"
+                                    value="{{ $field['value'] ?? '' }}"
+                                    {{ $field['required'] ? 'required' : '' }}
+                                    {{ $field['disabled'] ? 'disabled' : '' }}
+                                >
+                                    @break
+                                @case('phone')
+                                <input
+                                    type="tel"
+                                    class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
+                                    data-type="string"
+                                    id="{{ $field['name'] }}"
+                                    name="{{ $field['name'] }}"
+                                    placeholder="{{ $field['placeholder'] ?? '' }}"
+                                    value="{{ $field['value'] ?? '' }}"
+                                    {{ $field['required'] ? 'required' : '' }}
+                                    {{ $field['disabled'] ? 'disabled' : '' }}
+                                >
+                                    @break
+
+                                @case('email')
+                                    <input
+                                        type="email"
+                                        class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
+                                        data-type="email"
+                                        id="{{ $field['name'] }}"
+                                        name="{{ $field['name'] }}"
+                                        placeholder="{{ $field['placeholder'] ?? '' }}"
+                                        value="{{ $field['value'] ?? '' }}"
+                                        {{ $field['required'] ? 'required' : '' }}
+                                        {{ $field['disabled'] ? 'disabled' : '' }}
+                                    >
+                                    @break
 
                                 @case('textarea')
                                     <textarea
@@ -158,17 +198,7 @@
                                     @break
 
                                 @default
-                                    <input
-                                        type="{{ $field['type'] }}"
-                                        class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
-                                        data-type="{{ $field['data_type'] }}"
-                                        id="{{ $field['name'] }}"
-                                        name="{{ $field['name'] }}"
-                                        placeholder="{{ $field['placeholder'] ?? '' }}"
-                                        value="{{ $field['value'] ?? '' }}"
-                                        {{ $field['required'] ? 'required' : '' }}
-                                        {{ $field['disabled'] ? 'disabled' : '' }}
-                                    >
+                                    <h1 style="color:red; font-size:50px;" > {{$field['type']}} DOES NOT EXISTS IN FORM BUILDER PACKAGE</h1>>
                             @endswitch
 
                             <div class="invalid-feedback">
