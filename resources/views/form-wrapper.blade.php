@@ -68,7 +68,7 @@
                                     <input
                                         type="file"
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
-                                        data-type="string
+                                        data-type="string"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}{{ isset($field['multiple']) && $field['multiple'] ? '[]' : '' }}"
                                         {{ $field['required'] ? 'required' : '' }}
@@ -82,7 +82,7 @@
                                     <input
                                         type="number"
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
-                                        data-type="{{ $field['data_type'] }}"
+                                        data-type="{{ !isset($field['data_type']) ? 'integer' : $field['data_type'] }}"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}"
                                         placeholder="{{ $field['placeholder'] ?? '' }}"
@@ -139,7 +139,7 @@
                                             <input
                                                 class="form-check-input {{ $field['disabled'] ? '' : 'input-fields' }}"
                                                 type="checkbox"
-                                                data-type="{{ $field['data_type'] }}"
+                                                data-type="{{ !isset($field['data_type']) ? 'integer' : $field['data_type'] }}"
                                                 id="{{ $field['name'].'_'.$count }}"
                                                 name="{{ $field['name'] }}{{ isset($field['multiple']) && $field['multiple'] ? '[]' : '' }}"
                                                 value="{{ $option['value'] }}"
