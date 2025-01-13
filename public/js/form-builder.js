@@ -1,8 +1,11 @@
 // Form validation on input
 $(function () {
-    $('.needs-validation').find('input,select,textarea,input[type=radio],input[type=tel],input[type=checkbox],input[type=time]').on('input', function () {
+    $('.needs-validation-form-builder').find('input,select,textarea,input[type=radio],input[type=tel],input[type=checkbox],input[type=time]').on('input', function () {
         $(this).removeClass('is-valid is-invalid')
             .addClass(this.checkValidity() ? 'is-valid' : 'is-invalid');
+
+
+        alert('asdasa');
     });
 });
 
@@ -62,7 +65,7 @@ $('.form-builder-form-submit').click(function () {
         formData.append(name, value);
     });
 
-    send(url, formData, route);
+    send_request(url, formData, route);
 });
 
 function isFileInput(input) {
@@ -77,16 +80,84 @@ function isFileInput(input) {
 
 function validate_form(form_id) {
     let is_valid = true;
+
     $(`#${form_id} .input-fields`).each(function () {
-        if ($(this).prop('required') && !$(this).val()) {
-            $(this).addClass('is-invalid');
+        const $field = $(this);
+        const value = $field.val().trim();
+        const dataType = $field.data('type');
+
+        // Remove previous validation states
+        $field.removeClass('is-invalid');
+
+        // Required field validation
+        if ($field.prop('required') && !value) {
+            $field.addClass('is-invalid');
             is_valid = false;
+            return; // Skip other validations if empty required field
+        }
+
+        // Skip type validation if field is empty and not required
+        if (!value) return;
+
+        // Data type validation
+        switch (dataType) {
+            case 'integer':
+                // Matches HTML <input type="number" step="1">
+                if (!/^-?\d+$/.test(value)) {
+                    $field.addClass('is-invalid');
+                    is_valid = false;
+                }
+                break;
+
+            case 'float':
+                // Matches HTML <input type="number" step="any">
+                if (!/^-?\d*\.?\d+$/.test(value)) {
+                    $field.addClass('is-invalid');
+                    is_valid = false;
+                }
+                break;
+
+            case 'email':
+                // Matches HTML <input type="email">
+                // This is a simplified version of the HTML5 email validation
+                // HTML5 uses a more complex pattern internally
+                if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value)) {
+                    $field.addClass('is-invalid');
+                    is_valid = false;
+                }
+                break;
+
+            case 'tel':
+                // Matches pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                // Format: 10 digits without separators (e.g., 1234567890)
+                if (!/^[0-9]{10}$/.test(value)) {
+                    $field.addClass('is-invalid');
+                    is_valid = false;
+                }
+                break;
+
+            case 'date':
+                // Matches HTML <input type="date">
+                // Format: YYYY-MM-DD
+                if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+                    $field.addClass('is-invalid');
+                    is_valid = false;
+                } else {
+                    // Additional check for valid date
+                    const date = new Date(value);
+                    if (isNaN(date.getTime())) {
+                        $field.addClass('is-invalid');
+                        is_valid = false;
+                    }
+                }
+                break;
         }
     });
+
     return is_valid;
 }
 
-async function send(url, form_data, route) {
+async function send_request(url, form_data, route) {
     Swal.fire({
         title: 'Submitting...',
         html: 'Please wait, your request is being processed.',

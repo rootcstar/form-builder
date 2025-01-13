@@ -15,7 +15,7 @@ class FormBuilderServiceProvider extends ServiceProvider
         ], 'form-builder-views');
 
         $this->publishes([
-            __DIR__.'/../resources/js' => public_path('vendor/form-builder/js'),
+            __DIR__.'/../public/js' => public_path('vendor/form-builder/js'),
         ], 'form-builder-scripts');
 
         $this->publishes([
