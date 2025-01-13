@@ -68,7 +68,7 @@
                                     <input
                                         type="file"
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
-                                        data-type="{{ $field['data_type'] }}"
+                                        data-type="string"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}{{ isset($field['multiple']) && $field['multiple'] ? '[]' : '' }}"
                                         {{ $field['required'] ? 'required' : '' }}
@@ -82,7 +82,7 @@
                                     <input
                                         type="number"
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
-                                        data-type="{{ $field['data_type'] }}"
+                                        data-type="{{ $field['data_type'] ??  'integer' }}"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}"
                                         placeholder="{{ $field['placeholder'] ?? '' }}"
@@ -97,7 +97,7 @@
                                     <input
                                         type="{{ $field['type'] }}"
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
-                                        data-type="{{ $field['data_type'] }}"
+                                        data-type="string"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}"
                                         placeholder="{{ $field['placeholder'] ?? '' }}"
@@ -110,7 +110,7 @@
                                 @case('textarea')
                                     <textarea
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
-                                        data-type="{{ $field['data_type'] }}"
+                                        data-type="string"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}"
                                         placeholder="{{ $field['placeholder'] ?? '' }}"
@@ -122,7 +122,7 @@
                                     <input
                                         type="date"
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
-                                        data-type="{{ $field['data_type'] }}"
+                                        data-type="date"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}"
                                         placeholder="{{ $field['placeholder'] ?? '' }}"
@@ -139,7 +139,7 @@
                                             <input
                                                 class="form-check-input {{ $field['disabled'] ? '' : 'input-fields' }}"
                                                 type="checkbox"
-                                                data-type="{{ $field['data_type'] }}"
+                                                data-type="{{ $field['data_type'] ??  'integer' }}"
                                                 id="{{ $field['name'].'_'.$count }}"
                                                 name="{{ $field['name'] }}{{ isset($field['multiple']) && $field['multiple'] ? '[]' : '' }}"
                                                 value="{{ $option['value'] }}"

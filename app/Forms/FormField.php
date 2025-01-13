@@ -16,7 +16,7 @@ abstract class FormField
             'invalid_feedback' => 'This field is required',
             'value' => null,
             'field_warning' => null,
-            'data_type' => 'string',
+            'data_type' => null,
         ];
     }
     public function data_type(string $data_type): self
