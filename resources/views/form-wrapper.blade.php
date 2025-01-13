@@ -26,6 +26,7 @@
                                 @case('selectbox')
                                     <select
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
+                                        data-type="{{ $field['data_type'] }}"
                                         style="width:100%;"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}{{ isset($field['multiple']) && $field['multiple'] ? '[]' : '' }}"
@@ -44,6 +45,7 @@
                                 @case('selectbox-select2')
                                     <select
                                         class="select2 form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
+                                        data-type="{{ $field['data_type'] }}"
                                         style="width:100%;"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}{{ isset($field['multiple']) && $field['multiple'] ? '[]' : '' }}"
@@ -66,6 +68,7 @@
                                     <input
                                         type="file"
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
+                                        data-type="{{ $field['data_type'] }}"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}{{ isset($field['multiple']) && $field['multiple'] ? '[]' : '' }}"
                                         {{ $field['required'] ? 'required' : '' }}
@@ -79,6 +82,7 @@
                                     <input
                                         type="number"
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
+                                        data-type="{{ $field['data_type'] }}"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}"
                                         placeholder="{{ $field['placeholder'] ?? '' }}"
@@ -93,6 +97,7 @@
                                     <input
                                         type="{{ $field['type'] }}"
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
+                                        data-type="{{ $field['data_type'] }}"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}"
                                         placeholder="{{ $field['placeholder'] ?? '' }}"
@@ -105,6 +110,7 @@
                                 @case('textarea')
                                     <textarea
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
+                                        data-type="{{ $field['data_type'] }}"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}"
                                         placeholder="{{ $field['placeholder'] ?? '' }}"
@@ -116,6 +122,7 @@
                                     <input
                                         type="date"
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
+                                        data-type="{{ $field['data_type'] }}"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}"
                                         placeholder="{{ $field['placeholder'] ?? '' }}"
@@ -132,6 +139,7 @@
                                             <input
                                                 class="form-check-input {{ $field['disabled'] ? '' : 'input-fields' }}"
                                                 type="checkbox"
+                                                data-type="{{ $field['data_type'] }}"
                                                 id="{{ $field['name'].'_'.$count }}"
                                                 name="{{ $field['name'] }}{{ isset($field['multiple']) && $field['multiple'] ? '[]' : '' }}"
                                                 value="{{ $option['value'] }}"
@@ -153,6 +161,7 @@
                                     <input
                                         type="{{ $field['type'] }}"
                                         class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
+                                        data-type="{{ $field['data_type'] }}"
                                         id="{{ $field['name'] }}"
                                         name="{{ $field['name'] }}"
                                         placeholder="{{ $field['placeholder'] ?? '' }}"
@@ -169,7 +178,7 @@
                     @else
                         <!-- For hidden fields, do nothing or render the field value -->
                         <input type="hidden" id="{{ $field['name'] }}" class="input-fields" name="{{ $field['name'] }}"
-                               value="{{ $field['value'] }}">
+                               value="{{ $field['value'] }}" data-type="{{ $field['data_type'] }}">
                     @endif
                 @endforeach
 
