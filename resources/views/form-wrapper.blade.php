@@ -83,6 +83,7 @@
                                     type="number"
                                     class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
                                     data-type="{{ $field['data_type'] ??  'integer' }}"
+                                    {{ isset($field['pattern']) ? "pattern={$field['pattern']}" : '' }}
                                     id="{{ $field['name'] }}"
                                     name="{{ $field['name'] }}"
                                     placeholder="{{ $field['placeholder'] ?? '' }}"
@@ -98,6 +99,9 @@
                                     type="{{ $field['type'] }}"
                                     class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
                                     data-type="string"
+                                    {{ isset($field['pattern']) ? "pattern={$field['pattern']}" : '' }}
+                                    {{ isset($field['min_length']) ? "minlength={$field['max_length']}" : '' }}
+                                    {{ isset($field['max_length']) ? "maxlength={$field['max_length']}" : '' }}
                                     id="{{ $field['name'] }}"
                                     name="{{ $field['name'] }}"
                                     placeholder="{{ $field['placeholder'] ?? '' }}"
@@ -164,6 +168,7 @@
                                     type="date"
                                     class="form-control {{ $field['disabled'] ? '' : 'input-fields' }}"
                                     data-type="date"
+                                    {{ isset($field['pattern']) ? "pattern={$field['pattern']}" : '' }}
                                     id="{{ $field['name'] }}"
                                     name="{{ $field['name'] }}"
                                     placeholder="{{ $field['placeholder'] ?? '' }}"
