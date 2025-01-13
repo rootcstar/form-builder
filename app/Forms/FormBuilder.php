@@ -2,6 +2,7 @@
 
 namespace RootCStar\FormBuilder\Forms;
 use RootCStar\FormBuilder\Forms\Fields\DatePicker;
+use RootCStar\FormBuilder\Forms\Fields\EmailField;
 use RootCStar\FormBuilder\Forms\Fields\TextField;
 use RootCStar\FormBuilder\Forms\Fields\NumberField;
 use RootCStar\FormBuilder\Forms\Fields\SelectField;
@@ -69,6 +70,13 @@ class FormBuilder {
 
     public function telephoneField(string $name, string $label): FormField {
         $field = new TelephoneField($name, $label);
+        $this->fields[] = $field;
+        return $field;
+    }
+
+    public function emailField(string $name, string $label): FormField {
+        $field = new EmailField($name, $label);
+        $field->data_type('email');
         $this->fields[] = $field;
         return $field;
     }
