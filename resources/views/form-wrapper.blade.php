@@ -215,7 +215,7 @@
 
             @if(isset($form['submit-button']))
                 <div class="col-md-12">
-                    <div class="btn {{$form['submit-button']['class']}} form-submit"
+                    <div class="btn {{$form['submit-button']['class']}} form-builder-form-submit"
                          id="form-builder-form-submit">{{$form['submit-button']['text']}}</div>
                 </div>
             @endif
