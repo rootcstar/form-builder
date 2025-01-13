@@ -8,12 +8,16 @@ class PasswordField extends FormField
 {
     protected $config = [];
 
-    public function pattern(string $pattern): self
+    public function minLength(int $min_length): self
     {
-        $this->config['pattern'] = $pattern;
+        $this->config['min_length'] = $min_length;
         return $this;
     }
-
+    public function maxLength(int $max_length): self
+    {
+        $this->config['max_length'] = $max_length;
+        return $this;
+    }
 
     public function toArray(): array
     {
