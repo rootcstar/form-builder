@@ -139,3 +139,31 @@ async function send_request(url, form_data, route) {
         });
     }
 }
+var loadFile = function (event) {
+    var output = document.getElementById('new-img');
+    var imageInfo = document.getElementById('image-info');
+    var file = event.target.files[0];
+
+    if (file) {
+        output.src = URL.createObjectURL(file);
+
+        // Görsel yüklendikten sonra boyutlarını alıp ekrana yazdır
+        var img = new Image();
+        img.onload = function () {
+            const width = this.width;
+            const height = this.height;
+
+            imageInfo.textContent = Uploaded image size: ${width}x${height};
+        };
+        img.src = output.src;
+
+        // Görsel yüklendiğinde bellekten kaldırmak için
+        output.onload = function () {
+            URL.revokeObjectURL(output.src);
+        };
+    } else {
+        // Dosya seçilmezse
+        imageInfo.textContent = "No file selected.";
+        output.src = "";
+    }
+};
