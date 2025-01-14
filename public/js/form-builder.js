@@ -153,7 +153,7 @@ var loadFile = function (event) {
             const width = this.width;
             const height = this.height;
 
-            imageInfo.textContent = Uploaded image size: ${width}x${height};
+            imageInfo.textContent = 'Uploaded image size:' + width + 'x' + height;
         };
         img.src = output.src;
 
