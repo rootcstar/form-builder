@@ -29,14 +29,14 @@ $('.form-builder-form-submit').click(function () {
     const formData = new FormData();
     const fields = [];
     let tmp_array = [];
-
+    let values_array  = [];
     $(`#${form_id} .input-fields`).each(function () {
         if ($(this).prop('disabled')) return;
 
         const name = $(this).attr('name');
         let value;
         let field = {};
-
+        let is_array = false;
         if ($(this).attr('type') === 'checkbox') {
             if (!$(this).is(':checked')) return;
 
@@ -50,16 +50,28 @@ $('.form-builder-form-submit').click(function () {
             value = $(this).prop('files')[0];
             field[name] = value;
         } else if ($(this).hasClass('select2')) {
-            const selectedValues = $(this).val();
-            value = JSON.stringify(selectedValues);
-            field[name] = value;
+            is_array = true;
+            values_array = $(this).val();
+            field[name] = values_array;
         } else {
             value = $(this).val();
             field[name] = value;
         }
 
         fields.push(field);
-        formData.append(name, value);
+        if(is_array){
+            values_array.forEach(value => {
+                //check if int then send as int
+                if (!isNaN(value)) {
+                    formData.append(name, parseInt(value));
+                } else {
+                    formData.append(name, value);
+                }
+            });
+        } else {
+            formData.append(name, value);
+        }
+
     });
 
     send_request(url, formData, route);
