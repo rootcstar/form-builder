@@ -81,6 +81,7 @@ function isFileInput(input) {
     const name = input.attr('name');
     return name && (
         name.includes('img') ||
+        name.includes('image_url') ||
         name.includes('image') ||
         name.includes('photo') ||
         name.includes('csv')
