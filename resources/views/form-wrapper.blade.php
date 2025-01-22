@@ -6,10 +6,11 @@
         <h5 class="card-subtitle"> {{$form['subtitle']}}</h5>
         <form class="row g-3 needs-validation-form-builder" id="{{ $form['form_id'] }}" novalidate>
             @csrf
-            <input type="hidden" id="url" value="{{ $form['url'] }}">
+            <input type="hidden" id="api_url" value="{{ $form['api_url'] }}">
+            <input type="hidden" id="proxy" value="{{ $form['api_url'] }}">
             <input type="hidden" id="form_id" value="{{ $form['form_id'] }}">
             @if($form['redirect'])
-                <input type="hidden" id="redirect" value="{{ $form['redirect'] }}">
+                <input type="hidden" id="redirect_url" value="{{ $form['redirect_url'] }}">
             @endif
             <input type="hidden" id="method" value="{{ $form['method'] }}">
 
