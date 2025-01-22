@@ -15,17 +15,24 @@ composer require rootcstar/form-builder
 You can publish the views using:
 
 ```bash
-php artisan vendor:publish --tag=form-builder-views
+php artisan vendor:publish --tag=form-builder-views --force
 ```
 ## JavaScript Integration
 
 After installing the package, publish the JavaScript assets:
 
 ```bash
-php artisan vendor:publish --tag=form-builder-scripts
+php artisan vendor:publish --tag=form-builder-scripts --force
 ```
 Make sure your layout file includes the necessary style and script sections:
-```php
+
+All in once command:
+
+```bash
+php artisan vendor:publish --tag=form-builder-views --force && php artisan vendor:publish --tag=form-builder-views --force && php artisan vendor:publish --tag=form-builder-scripts --force
+```
+
+
 <!DOCTYPE html>
 <html>
 <head>
