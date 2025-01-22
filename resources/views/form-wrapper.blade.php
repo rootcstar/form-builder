@@ -9,7 +9,7 @@
             <input type="hidden" id="api_url" value="{{ $form['api_url'] }}">
             <input type="hidden" id="proxy_url" value="{{ $form['proxy_url'] }}">
             <input type="hidden" id="form_id" value="{{ $form['form_id'] }}">
-            @if($form['redirect'])
+            @if($form['redirect_url'])
                 <input type="hidden" id="redirect_url" value="{{ $form['redirect_url'] }}">
             @endif
             <input type="hidden" id="method" value="{{ $form['method'] }}">
