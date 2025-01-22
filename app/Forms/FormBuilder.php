@@ -18,10 +18,10 @@ class FormBuilder {
     protected $form = [];
     protected $fields = []; // Add this to store field objects
 
-    private function __construct(string $formId, string $action, ?string $redirect = null, ?string $method = 'POST', ?string $title = null, ?string $subtitle = null) {
+    private function __construct(string $formId, string $url, ?string $redirect = null, ?string $method = 'POST', ?string $title = null, ?string $subtitle = null) {
         $this->form = [
             'form_id' => $formId,
-            'url' => $action,
+            'url' => $url,
             'redirect' => $redirect,
             'method'=>$method,
             'title' => $title,
@@ -30,8 +30,8 @@ class FormBuilder {
         ];
     }
 
-    public static function create(string $formId, string $action, ?string $redirect = null, ?string $method = 'POST', ?string $title = null, ?string $subtitle = null): self {
-        return new self($formId, $action, $redirect, $method, $title, $subtitle);
+    public static function create(string $formId, string $url, ?string $redirect = null, ?string $method = 'POST', ?string $title = null, ?string $subtitle = null): self {
+        return new self($formId, $url, $redirect, $method, $title, $subtitle);
     }
 
     public function customFieldHtml(string $html, string $label = '', string $name = ''): FormField {
