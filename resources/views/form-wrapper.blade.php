@@ -7,7 +7,7 @@
         <form class="row g-3 needs-validation-form-builder" id="{{ $form['form_id'] }}" novalidate>
             @csrf
             <input type="hidden" id="api_url" value="{{ $form['api_url'] }}">
-            <input type="hidden" id="proxy" value="{{ $form['api_url'] }}">
+            <input type="hidden" id="proxy_url" value="{{ $form['proxy_url'] }}">
             <input type="hidden" id="form_id" value="{{ $form['form_id'] }}">
             @if($form['redirect'])
                 <input type="hidden" id="redirect_url" value="{{ $form['redirect_url'] }}">
