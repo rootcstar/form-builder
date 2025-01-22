@@ -236,7 +236,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @endif
 
-    <script src="/form-builder/js/form-builder.js"></script>
+    <script src="{{asset('form-builder/js/form-builder.js')}}"></script>
 
 
 @endpush
