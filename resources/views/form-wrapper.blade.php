@@ -11,6 +11,7 @@
             @if($form['redirect'])
                 <input type="hidden" id="redirect" value="{{ $form['redirect'] }}">
             @endif
+            <input type="hidden" id="method" value="{{ $form['method'] }}">
 
             @foreach($form['fields'] as $field)
 
