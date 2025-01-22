@@ -24,9 +24,9 @@ class FormBuilderServiceProvider extends ServiceProvider
 
         // Publishing everything to a single directory in public
         $this->publishes([
-            __DIR__.'/../resources/views' => public_path('form-builder/views'),
-            __DIR__.'/../public/js' => public_path('form-builder/js'),
-            __DIR__.'/../config/form-builder.php' => public_path('form-builder/config/form-builder.php'),
+            __DIR__.'/../resources/views' => public_path('vendor/form-builder/views'),
+            __DIR__.'/../public/js' => public_path('vendor/form-builder/js'),
+            __DIR__.'/../config/form-builder.php' => public_path('vendor/form-builder/config/form-builder.php'),
         ], 'form-builder-assets');
     }
 
