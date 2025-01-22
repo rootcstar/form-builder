@@ -18,13 +18,14 @@ class FormBuilder {
     protected $form = [];
     protected $fields = []; // Add this to store field objects
 
-    private function __construct(string $formId, string $action, ?string $redirect = null, ?string $title = null, ?string $subtitle = null) {
+    private function __construct(string $formId, string $action, ?string $redirect = null, ?string $method = 'POST', ?string $title = null, ?string $subtitle = null) {
         $this->form = [
             'title' => $title,
             'subtitle' => $subtitle,
             'form_id' => $formId,
             'url' => $action,
             'redirect' => $redirect,
+            'method'=>$method,
             'fields' => []
         ];
     }
