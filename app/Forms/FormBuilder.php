@@ -20,12 +20,12 @@ class FormBuilder {
 
     private function __construct(string $formId, string $action, ?string $redirect = null, ?string $method = 'POST', ?string $title = null, ?string $subtitle = null) {
         $this->form = [
-            'title' => $title,
-            'subtitle' => $subtitle,
             'form_id' => $formId,
             'url' => $action,
             'redirect' => $redirect,
             'method'=>$method,
+            'title' => $title,
+            'subtitle' => $subtitle,
             'fields' => []
         ];
     }
