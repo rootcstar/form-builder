@@ -21,8 +21,8 @@ class FormBuilder {
     private function __construct(string $formId, string $api_url, string $proxy_url, ?string $redirect_url = null, ?string $method = 'POST', ?string $title = null, ?string $subtitle = null) {
         $this->form = [
             'form_id' => $formId,
-            'proxy_url' => $proxy_url ,
             'api_url' => $api_url,
+            'proxy_url' => $proxy_url ,
             'redirect_url' => $redirect_url,
             'method'=>$method,
             'title' => $title,
