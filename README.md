@@ -10,6 +10,14 @@ You can install the package via composer:
 composer require rootcstar/form-builder
 ```
 
+## Publishing Configs
+
+You can publish the views using:
+
+```bash
+php artisan vendor:publish --tag=form-builder-config
+```
+
 ## Publishing Views
 
 You can publish the views using:
@@ -47,14 +55,6 @@ php artisan vendor:publish --tag=form-builder-views --force && php artisan vendo
     @stack('form-builder-scripts')
 </body>
 </html>
-```
-## Publishing Configs
-
-You can publish the views using:
-
-```bash
-php artisan vendor:publish --tag=form-builder-config
-```
 
 
 ## Usage
