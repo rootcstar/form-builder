@@ -30,8 +30,8 @@ class FormBuilder {
         ];
     }
 
-    public static function create(string $formId, string $action, ?string $redirect = null, ?string $title = null, ?string $subtitle = null): self {
-        return new self($formId, $action, $redirect, $title, $subtitle);
+    public static function create(string $formId, string $action, ?string $redirect = null, ?string $method = 'POST', ?string $title = null, ?string $subtitle = null): self {
+        return new self($formId, $action, $redirect, $method, $title, $subtitle);
     }
 
     public function customFieldHtml(string $html, string $label = '', string $name = ''): FormField {
