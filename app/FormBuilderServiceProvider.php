@@ -10,7 +10,7 @@ class FormBuilderServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'form-builder');
 
-        $this->publishes([
+        /*$this->publishes([
             __DIR__.'/../resources/views' => resource_path('views/vendor/form-builder'),
         ], 'form-builder-views');
 
@@ -20,7 +20,14 @@ class FormBuilderServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../config/form-builder.php' => config_path('form-builder.php'),
-        ], 'form-builder-config');
+        ], 'form-builder-config');*/
+
+        // Publishing everything to a single directory in public
+        $this->publishes([
+            __DIR__.'/../resources/views' => public_path('form-builder/views'),
+            __DIR__.'/../public/js' => public_path('form-builder/js'),
+            __DIR__.'/../config/form-builder.php' => public_path('form-builder/config/form-builder.php'),
+        ], 'form-builder-assets');
     }
 
     public function register()
