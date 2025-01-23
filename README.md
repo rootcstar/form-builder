@@ -10,31 +10,17 @@ You can install the package via composer:
 composer require rootcstar/form-builder
 ```
 
-## Publishing Configs
-
-You can publish the views using:
+## Publishing Assets
 
 ```bash
+# Publish config
 php artisan vendor:publish --tag=form-builder-config
-```
 
-## Publishing Views
-
-You can publish the views using:
-
-```bash
+# Publish views
 php artisan vendor:publish --tag=form-builder-views --force
-```
 
-## Publishing JavaScript
-```bash
+# Publish JavaScript
 php artisan vendor:publish --tag=form-builder-scripts --force
-```
-
-All in once command:
-
-```bash
-php artisan vendor:publish --tag=form-builder-views --force && php artisan vendor:publish --tag=form-builder-views --force && php artisan vendor:publish --tag=form-builder-scripts --force
 ```
 
 ## Usage
@@ -46,14 +32,14 @@ Here's a comprehensive guide on how to use the Form Builder:
 ```php
 use RootCStar\FormBuilder\Forms\FormBuilder;
 
-$form = FormBuilder::create(
-    'form-id',           // Unique form ID
-    route('home'),       // Form action URL
-    route('home'),       // Redirect URL after submission
-    'POST',              // Form method
-    'Form Title',        // Optional form title
-    'Form Subtitle'      // Optional form subtitle
-);
+$form = FormBuilder::make()
+    ->formId('my-form')
+    ->apiUrl('/api/endpoint')      // API endpoint for form submission
+    ->proxyUrl('/proxy/endpoint')  // Optional proxy URL (defaults to apiUrl if not set)
+    ->redirectUrl('/success')      // Optional redirect URL after submission
+    ->apiMethod('POST')           // HTTP method (defaults to POST)
+    ->title('Form Title')         // Optional form title
+    ->subtitle('Form Subtitle');  // Optional form subtitle
 ```
 
 ### Available Field Types
@@ -75,21 +61,27 @@ $form->numberField('age', 'Age')
     ->value(25);
 ```
 
+#### Hidden Field
+```php
+$form->hiddenField('user_id', '')
+    ->value(1);
+```
+
 #### Custom HTML Field
 ```php
-$form->customFieldHtml('<h1>Custom Field HTML</h1>', 'optional label');
+$form->customFieldHtml('<div class="alert alert-info">Custom HTML</div>', 'Optional Label');
 ```
 
 #### File Upload Fields
 ```php
 // Single File Upload
-$form->fileField('document', 'Upload Single File')
+$form->fileField('document', 'Upload File')
     ->required()
-    ->fieldWarning('max file size 2 mb')
+    ->fieldWarning('Max file size: 2MB')
     ->accept('.pdf,.doc,.docx');
 
 // Multiple File Upload
-$form->fileField('photos', 'Upload Multiple Files')
+$form->fileField('photos', 'Upload Images')
     ->required()
     ->multiple()
     ->accept('image/*');
@@ -97,94 +89,93 @@ $form->fileField('photos', 'Upload Multiple Files')
 
 #### Select Fields
 ```php
-// Single Select
-$form->selectField('role', 'Single Select')
+// Basic Select
+$form->selectField('country', 'Select Country')
     ->required()
     ->options([
-        1 => 'option 1',
-        2 => 'option 2',
-        3 => 'option 3'
+        'us' => 'United States',
+        'uk' => 'United Kingdom'
     ])
-    ->selected(2);
+    ->selected('us');
 
 // Multiple Select
-$form->selectField('permissions', 'Multiple Select')
+$form->selectField('skills', 'Select Skills')
     ->required()
     ->multiple()
     ->options([
-        'create' => 'option 1',
-        'read' => 'option 2',
-        'update' => 'option 3',
-        'delete' => 'option 4'
+        'php' => 'PHP',
+        'js' => 'JavaScript',
+        'python' => 'Python'
     ])
-    ->selected('read');
+    ->selected(['php', 'js']);
 ```
 
 #### Select2 Fields
 ```php
 // Single Select2
-$form->select2Field('role', 'Single Select with select2')
+$form->select2Field('category', 'Select Category')
     ->required()
     ->options([
-        1 => 'option 1',
-        2 => 'option 2',
-        3 => 'option 3'
+        1 => 'Category 1',
+        2 => 'Category 2'
     ])
-    ->selected(2);
+    ->selected(1);
 
 // Multiple Select2
-$form->select2Field('permissions', 'Multiple Select with select2')
+$form->select2Field('tags', 'Select Tags')
     ->required()
     ->multiple()
     ->options([
-        'create' => 'option 1',
-        'read' => 'option 2',
-        'update' => 'option 3',
-        'delete' => 'option 4'
+        'tag1' => 'Tag 1',
+        'tag2' => 'Tag 2'
     ])
-    ->selected('read');
+    ->selected(['tag1']);
 ```
 
-#### Textarea Field
+#### Email Field
 ```php
-$form->textAreaField('description', 'Text Area Field')
+$form->emailField('email', 'Email Address')
     ->required()
-    ->placeholder('Enter your description')
-    ->value('Lorem ipsum dolor sit amet');
-```
-
-#### Telephone Field
-```php
-$form->telephoneField('phone', 'Phone Field')
-    ->required()
-    ->placeholder('Enter your phone number')
-    ->value('1234567890');
+    ->placeholder('Enter your email');
 ```
 
 #### Password Field
 ```php
-$form->passwordField('password', 'Password Field')
+$form->passwordField('password', 'Password')
     ->required()
     ->placeholder('Enter your password');
 ```
 
+#### Telephone Field
+```php
+$form->telephoneField('phone', 'Phone Number')
+    ->required()
+    ->placeholder('Enter your phone number');
+```
+
+#### Textarea Field
+```php
+$form->textAreaField('description', 'Description')
+    ->required()
+    ->placeholder('Enter description')
+    ->rows(5);
+```
+
 #### Date Picker Field
 ```php
-$form->datePickerField('date', 'Date Field')
+$form->datePickerField('birth_date', 'Birth Date')
     ->required()
-    ->fieldWarning('mm/dd/yyyy')
-    ->value('2021-01-03');
+    ->fieldWarning('Format: MM/DD/YYYY')
+    ->value('2024-01-01');
 ```
 
 #### Checkbox Field
 ```php
-$form->checkboxField('terms', 'Choose to agree one')
+$form->checkboxField('terms', 'Terms and Conditions')
     ->required()
     ->options([
-        'create' => 'option 1',
-        'read' => 'option 2',
-        'update' => 'option 3',
-        'delete' => 'option 4'
+        'agree' => 'I agree to the terms',
+        'newsletter' => 'Subscribe to newsletter'
     ])
     ->multiple()
     ->inline();
@@ -194,10 +185,10 @@ $form->checkboxField('terms', 'Choose to agree one')
 
 Add a submit button and render the form:
 ```php
-$form->submitButton('Submit Form');
+$form->submitButton('Save Changes', 'btn-primary');
 
 return view('your.view', [
-    'form' => $form->render(),
+    'form' => $form->render()
 ]);
 ```
 
