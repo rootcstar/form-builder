@@ -32,7 +32,7 @@ Here's a comprehensive guide on how to use the Form Builder:
 ```php
 use RootCStar\FormBuilder\Forms\FormBuilder;
 
-$form = FormBuilder::make()
+$form = FormBuilder::create()
     ->formId('my-form')
     ->apiUrl('/api/endpoint')      // API endpoint for form submission
     ->proxyUrl('/proxy/endpoint')  // Optional proxy URL (defaults to apiUrl if not set)
