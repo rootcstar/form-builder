@@ -2,17 +2,20 @@
 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">{{$form['title']}}</h4>
-        <h5 class="card-subtitle"> {{$form['subtitle']}}</h5>
+        @if($form['title'])
+            <h4 class="card-title">{{$form['title']}}</h4>
+        @endif
+        @if($form['subtitle'])
+            <h4 class="card-subtitle">{{$form['subtitle']}}</h4>
+        @endif
         <form class="row g-3 needs-validation-form-builder" id="{{ $form['form_id'] }}" novalidate>
             @csrf
             <input type="hidden" id="api_url" value="{{ $form['api_url'] }}">
             <input type="hidden" id="proxy_url" value="{{ $form['proxy_url'] }}">
-            <input type="hidden" id="form_id" value="{{ $form['form_id'] }}">
             @if($form['redirect_url'])
                 <input type="hidden" id="redirect_url" value="{{ $form['redirect_url'] }}">
             @endif
-            <input type="hidden" id="method" value="{{ $form['method'] }}">
+            <input type="hidden" id="api_method" value="{{ $form['api_method'] }}">
 
             @foreach($form['fields'] as $field)
 

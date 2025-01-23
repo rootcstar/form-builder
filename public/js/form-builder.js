@@ -1,182 +1,141 @@
-// Form validation on input
-$(function () {
-    $('.needs-validation-form-builder').find('input,select,textarea,input[type=radio],input[type=tel],input[type=checkbox],input[type=time]').on('input', function () {
-        $(this).removeClass('is-valid is-invalid')
-            .addClass(this.checkValidity() ? 'is-valid' : 'is-invalid');
-    });
-});
-
 // Initialize Select2
 $(document).ready(function() {
     $('.select2').select2();
+});
+
+// Form validation on input
+$(document).on('input', '.needs-validation-form-builder input, select, textarea', function() {
+    $(this).toggleClass('is-valid', this.checkValidity())
+        .toggleClass('is-invalid', !this.checkValidity());
 });
 
 // Form submission handler
 $('.form-builder-form-submit').click(function () {
     const form = $(this).closest('form');
     const form_id = form.attr('id');
-    const url = $(`#${form_id} #url`).val();
-    const route = $('#redirect').val();
+    const formElement = $(`#${form_id}`);
 
     if (!form_validation(form_id)) {
         Swal.fire({
             icon: 'info',
-            title: 'Please fill out empty field !'
+            title: 'Please check the form before sending'
         });
         return;
     }
 
     const formData = new FormData();
-    const fields = [];
-    let tmp_array = [];
-    let values_array  = [];
     $(`#${form_id} .input-fields`).each(function () {
         if ($(this).prop('disabled')) return;
-
         const name = $(this).attr('name');
-        let value;
-        let field = {};
-        let is_array = false;
         if ($(this).attr('type') === 'checkbox') {
             if (!$(this).is(':checked')) return;
-
-            tmp_array.push($(this).val());
-            if (tmp_array.length !== $(`input:checkbox[name="${name}"]:checked`).length) return;
-
-            value = JSON.stringify(tmp_array);
-            field[name] = value;
-            tmp_array = [];
-        } else if (isFileInput($(this))) {
-            value = $(this).prop('files')[0];
-            field[name] = value;
-        } else if ($(this).hasClass('select2')) {
-            is_array = true;
-            values_array = $(this).val();
-            field[name] = values_array;
-        } else {
-            value = $(this).val();
-            field[name] = value;
-        }
-
-        fields.push(field);
-        if(is_array){
-            values_array.forEach(value => {
-                //check if int then send as int
-                if (!isNaN(value)) {
-                    formData.append(name, parseInt(value));
-                } else {
-                    formData.append(name, value);
-                }
-            });
-        } else {
+            const value = JSON.stringify($(`input:checkbox[name="${name}"]:checked`).map(function() { return $(this).val(); }).get());
             formData.append(name, value);
+        } else if ($(this).attr('type') === 'file') {
+            const files = $(this).prop('files');
+            for (let i = 0; i < files.length; i++) {
+                formData.append(name, files[i]);
+            }
+        } else if ($(this).hasClass('select2')) {
+            const values = $(this).val();
+            values.forEach(val => formData.append(name, isNaN(val) ? val : parseInt(val)));
+        } else {
+            formData.append(name, $(this).val());
         }
-
     });
 
-    send_request(url, formData, route);
-});
+    const api_method = formElement.find('#api_method').val();
+    const api_url = formElement.find('#api_url').val();
+    formData.append('api_method', api_method);
+    formData.append('api_url', api_url);
 
-function isFileInput(input) {
-    const name = input.attr('name');
-    return name && (
-        name.includes('img') ||
-        name.includes('image_url') ||
-        name.includes('image') ||
-        name.includes('photo') ||
-        name.includes('csv')
-    );
-}
+    const proxy_url = formElement.find('#proxy_url').val();
+    const redirect_url = formElement.find('#redirect_url').val();
+    send_request(proxy_url, formData, redirect_url);
+});
 
 function form_validation(form_id) {
     let is_valid = true;
-    $(`#${form_id} .input-fields`).each(function () {
-        if ($(this).prop('required') && !$(this).val()) {
-            $(this).addClass('is-invalid');
+    const inputs = $(`#${form_id} .input-fields`);
+    inputs.each(function () {
+        const input = $(this);
+        if (!input.prop('required')) return;
+
+        if (input.attr('type') === 'file' && !input.prop('files').length) {
+            input.addClass('is-invalid');
+            is_valid = false;
+        } else if (!input.val()) {
+            input.addClass('is-invalid');
             is_valid = false;
         }
     });
+
     return is_valid;
 }
 
-async function send_request(url, form_data, route) {
-    Swal.fire({
-        title: 'Submitting...',
-        html: 'Please wait, your request is being processed.',
-        allowOutsideClick: false,
-        didOpen: () => {
-            Swal.showLoading();
-        }
-    });
-
+async function send_request(proxy_url, form_data, redirect_url) {
     try {
-        const response = await fetch(url, {
+        Swal.fire({
+            title: 'Submitting...',
+            html: 'Please wait, your request is being processed.',
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading()
+        });
+
+        const response = await fetch(proxy_url, {
             method: "POST",
-            body: form_data,
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            }
+            body: form_data
         });
 
         const data = await response.json();
 
-        if (response.ok) {
-            Swal.fire({
+        const swalConfig = {
+            success: {
                 icon: 'success',
-                title: `${data.msg}\nRedirecting...`,
-            });
-            setTimeout(() => {
-                window.location.href = route;
-            }, 1000);
-        } else if (response.status === 401) {
-            Swal.fire({
-                icon: 'error',
-                text: 'Redirecting Logging out...',
                 title: data.msg,
-            });
-            setTimeout(() => {
-                window.location.href = '/logout';
-            }, 3000);
-        } else {
-            Swal.fire({
+                text: redirect_url ? `${data.msg}\nRedirecting...` : data.msg
+            },
+            unauthorized: {
+                icon: 'error',
+                title: 'Unauthorized',
+                text: `${data.msg}\nLogging out...`
+            },
+            error: {
                 icon: 'warning',
                 title: 'Oopsssss...',
                 text: data.msg
-            });
+            }
+        };
+
+        let config;
+        let shouldRedirect = false;
+        let redirectPath = redirect_url;
+
+        if (response.ok) {
+            config = swalConfig.success;
+            shouldRedirect = !!redirect_url;
+        } else if (response.status === 401) {
+            config = swalConfig.unauthorized;
+            shouldRedirect = true;
+            redirectPath = '/logout';
+        } else {
+            config = swalConfig.error;
         }
+
+        await Swal.fire(config);
+
+        if (shouldRedirect) {
+            setTimeout(() => {
+                window.location.href = redirectPath;
+            }, 3000);
+        }
+
     } catch (error) {
+        console.error('Request failed:', error);
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'An unexpected error occurred'
+            text: 'An unexpected error occurred. Please try again.'
         });
     }
 }
-var loadFile = function (event) {
-    var output = document.getElementById('new-img');
-    var imageInfo = document.getElementById('image-info');
-    var file = event.target.files[0];
-
-    if (file) {
-        output.src = URL.createObjectURL(file);
-
-        // Görsel yüklendikten sonra boyutlarını alıp ekrana yazdır
-        var img = new Image();
-        img.onload = function () {
-            const width = this.width;
-            const height = this.height;
-
-            imageInfo.textContent = 'Uploaded image size:' + width + 'x' + height;
-        };
-        img.src = output.src;
-
-        // Görsel yüklendiğinde bellekten kaldırmak için
-        output.onload = function () {
-            URL.revokeObjectURL(output.src);
-        };
-    } else {
-        // Dosya seçilmezse
-        imageInfo.textContent = "No file selected.";
-        output.src = "";
-    }
-};
