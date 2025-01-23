@@ -93,12 +93,16 @@ async function send_request(proxy_url, form_data, redirect_url) {
             success: {
                 icon: 'success',
                 title: data.msg,
-                text: redirect_url ? `${data.msg}\nRedirecting...` : data.msg
+                text: redirect_url ? `Redirecting...` : '',
+                timer : 1500,
+                timerProgressBar: true
             },
             unauthorized: {
                 icon: 'error',
                 title: 'Unauthorized',
-                text: `${data.msg}\nLogging out...`
+                text: `${data.msg}\nLogging out...`,
+                timer : 1500,
+                timerProgressBar: true
             },
             error: {
                 icon: 'warning',
@@ -122,13 +126,13 @@ async function send_request(proxy_url, form_data, redirect_url) {
             config = swalConfig.error;
         }
 
-        await Swal.fire(config);
-
-        if (shouldRedirect) {
-            setTimeout(() => {
-                window.location.href = redirectPath;
-            }, 3000);
-        }
+        await Swal.fire(config).then(
+            (result) => {
+                if (result.dismiss === Swal.DismissReason.timer && shouldRedirect) {
+                    window.location.href = redirectPath
+                }
+            }
+        );
 
     } catch (error) {
         console.error('Request failed:', error);
