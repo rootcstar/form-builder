@@ -93,7 +93,7 @@ async function send_request(proxy_url, form_data, redirect_url) {
             success: {
                 icon: 'success',
                 title: data.msg,
-                text: redirect_url ? `${data.msg}\nRedirecting...` : data.msg
+                text: redirect_url ? `Redirecting...` : ''
             },
             unauthorized: {
                 icon: 'error',
@@ -127,7 +127,7 @@ async function send_request(proxy_url, form_data, redirect_url) {
         if (shouldRedirect) {
             setTimeout(() => {
                 window.location.href = redirectPath;
-            }, 3000);
+            }, 1000);
         }
 
     } catch (error) {
