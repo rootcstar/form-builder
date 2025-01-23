@@ -16,24 +16,65 @@ use RootCStar\FormBuilder\Forms\Fields\PasswordField;
 use RootCStar\FormBuilder\Forms\Fields\HiddenField;
 class FormBuilder {
     protected $form = [];
-    protected $fields = []; // Add this to store field objects
+    protected $fields = [];
 
-    private function __construct(string $formId, string $api_url, string $proxy_url, ?string $redirect_url = null, ?string $method = 'POST', ?string $title = null, ?string $subtitle = null) {
+    private function __construct() {
         $this->form = [
-            'form_id' => $formId,
-            'api_url' => $api_url,
-            'proxy_url' => $proxy_url ,
-            'redirect_url' => $redirect_url,
-            'method'=>$method,
-            'title' => $title,
-            'subtitle' => $subtitle,
+            'form_id' => null,
+            'api_url' => null,
+            'proxy_url' => null,
+            'redirect_url' => null,
+            'api_method' => 'POST',
+            'title' => null,
+            'subtitle' => null,
             'fields' => []
         ];
     }
 
-    public static function create(string $formId, string $api_url, string $proxy_url, ?string $redirect_url = null, ?string $method = 'POST', ?string $title = null, ?string $subtitle = null): self {
-        return new self($formId, $api_url, $proxy_url, $redirect_url, $method, $title, $subtitle);
+    public static function create(): self {
+        return new self();
     }
+
+    public function formId(string $formId): self {
+        $this->form['form_id'] = $formId;
+        return $this;
+    }
+
+    public function apiUrl(string $url): self {
+        $this->form['api_url'] = $url;
+        if ($this->form['proxy_url'] === null) {
+            $this->form['proxy_url'] = $url;
+        }
+        return $this;
+    }
+
+    public function proxyUrl(string $url): self {
+        $this->form['proxy_url'] = $url;
+        return $this;
+    }
+
+    public function redirectUrl(?string $url): self {
+        $this->form['redirect_url'] = $url;
+        return $this;
+    }
+
+    public function title(?string $title): self {
+        $this->form['title'] = $title;
+        return $this;
+    }
+
+    public function subtitle(?string $subtitle): self {
+        $this->form['subtitle'] = $subtitle;
+        return $this;
+    }
+
+    public function apiMethod(string $method): self {
+        $this->form['api_method'] = $method;
+        return $this;
+    }
+
+
+
 
     public function customFieldHtml(string $html, string $label = '', string $name = ''): FormField {
 
