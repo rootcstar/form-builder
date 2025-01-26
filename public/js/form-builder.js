@@ -10,7 +10,7 @@ $(document).on('input', '.needs-validation-form-builder input, select, textarea'
 });
 
 // Form submission handler
-$('.form-builder-form-submit').click(function () {
+$('.form-builder-form-submit').click(function (e) {
     e.preventDefault()
     const form = $(this).closest('form');
     const form_id = form.attr('id');
