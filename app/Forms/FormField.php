@@ -16,7 +16,7 @@ abstract class FormField
             'invalid_feedback' => 'This field is required',
             'value' => null,
             'field_warning' => null,
-            'multiple_values_array' => null,
+            'multiple_values_array' => [],
         ];
     }
     public function selected(string $selected_value = null): self
