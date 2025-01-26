@@ -15,12 +15,18 @@ abstract class FormField
             'disabled' => false,
             'invalid_feedback' => 'This field is required',
             'value' => null,
-            'field_warning' => null
+            'field_warning' => null,
+            'multiple_values_array' => null,
         ];
     }
     public function selected(string $selected_value = null): self
     {
         $this->config['value'] = $selected_value;
+        return $this;
+    }
+    public function multipleSelected(array $selected_values_array = []): self
+    {
+        $this->config['multiple_values_array'] = $selected_values_array;
         return $this;
     }
     public function value(string $value = null): self

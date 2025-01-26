@@ -62,7 +62,7 @@
                                     </option>
                                     @foreach($field['options'] as $option)
                                         <option
-                                            value="{{ $option['value'] }}" {{(isset($field['value']) && ($field['value'] == $option['value'])) ? 'selected': ''}}>{{ $option['description'] }}</option>
+                                            value="{{ $option['value'] }}" {{(in_array($option['value'],$field['multiple_values_array'])) ? 'selected': ''}}>{{ $option['description'] }}</option>
                                     @endforeach
                                 </select>
                                 @break
