@@ -10,50 +10,55 @@ $(document).on('input', '.needs-validation-form-builder input, select, textarea'
 });
 
 // Form submission handler
-$('.form-builder-form-submit').click(function (e) {
-    e.preventDefault()
-    const form = $(this).closest('form');
-    const form_id = form.attr('id');
-    const formElement = $(`#${form_id}`);
+$(document).ready(function() {
+    $('.form-builder-form-submit').each(function() {
+        $(this).off('click').on('click', function(e) {
+            e.preventDefault()
+            const form = $(this).closest('form');
+            const form_id = form.attr('id');
+            const formElement = $(`#${form_id}`);
 
-    if (!form_validation(form_id)) {
-        Swal.fire({
-            icon: 'info',
-            title: 'Please check the form before sending'
-        });
-        return;
-    }
-
-    const formData = new FormData();
-    $(`#${form_id} .input-fields`).each(function () {
-        if ($(this).prop('disabled')) return;
-        const name = $(this).attr('name');
-        if ($(this).attr('type') === 'checkbox') {
-            if (!$(this).is(':checked')) return;
-            const value = JSON.stringify($(`input:checkbox[name="${name}"]:checked`).map(function() { return $(this).val(); }).get());
-            formData.append(name, value);
-        } else if ($(this).attr('type') === 'file') {
-            const files = $(this).prop('files');
-            for (let i = 0; i < files.length; i++) {
-                formData.append(name, files[i]);
+            if (!form_validation(form_id)) {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Please check the form before sending'
+                });
+                return;
             }
-        } else if ($(this).hasClass('select2')) {
-            const values = $(this).val();
-            values.forEach(val => formData.append(name, isNaN(val) ? val : parseInt(val)));
-        } else {
-            formData.append(name, $(this).val());
-        }
+
+            const formData = new FormData();
+            $(`#${form_id} .input-fields`).each(function () {
+                if ($(this).prop('disabled')) return;
+                const name = $(this).attr('name');
+                if ($(this).attr('type') === 'checkbox') {
+                    if (!$(this).is(':checked')) return;
+                    const value = JSON.stringify($(`input:checkbox[name="${name}"]:checked`).map(function() { return $(this).val(); }).get());
+                    formData.append(name, value);
+                } else if ($(this).attr('type') === 'file') {
+                    const files = $(this).prop('files');
+                    for (let i = 0; i < files.length; i++) {
+                        formData.append(name, files[i]);
+                    }
+                } else if ($(this).hasClass('select2')) {
+                    const values = $(this).val();
+                    values.forEach(val => formData.append(name, isNaN(val) ? val : parseInt(val)));
+                } else {
+                    formData.append(name, $(this).val());
+                }
+            });
+
+            const api_method = formElement.find('#api_method').val();
+            const api_url = formElement.find('#api_url').val();
+            formData.append('api_method', api_method);
+            formData.append('api_url', api_url);
+
+            const proxy_url = formElement.find('#proxy_url').val();
+            const redirect_url = formElement.find('#redirect_url').val();
+            send_request(proxy_url, formData, redirect_url);
+        });
     });
-
-    const api_method = formElement.find('#api_method').val();
-    const api_url = formElement.find('#api_url').val();
-    formData.append('api_method', api_method);
-    formData.append('api_url', api_url);
-
-    const proxy_url = formElement.find('#proxy_url').val();
-    const redirect_url = formElement.find('#redirect_url').val();
-    send_request(proxy_url, formData, redirect_url);
 });
+
 
 function form_validation(form_id) {
     let is_valid = true;
