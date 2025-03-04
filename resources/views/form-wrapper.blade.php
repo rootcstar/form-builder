@@ -93,6 +93,7 @@
                                     {{ $field['disabled'] ? 'disabled' : '' }}
                                     {{ isset($field['min']) ? "min={$field['min']}" : '' }}
                                     {{ isset($field['max']) ? "max={$field['max']}" : '' }}
+                                    {{ isset($field['step']) ? "step={$field['step']}" : '' }}
                                 >
                                 @break
                             @case('text')
@@ -170,6 +171,8 @@
                                     {{ isset($field['pattern']) ? "pattern={$field['pattern']}" : '' }}
                                     id="{{ $field['name'] }}"
                                     name="{{ $field['name'] }}"
+                                    {{ isset($field['min']) ? "min={$field['min']}" : '' }}
+                                    {{ isset($field['max']) ? "max={$field['max']}" : '' }}
                                     placeholder="{{ $field['placeholder'] ?? '' }}"
                                     value="{{ $field['value'] ?? '' }}"
                                     {{ $field['required'] ? 'required' : '' }}
