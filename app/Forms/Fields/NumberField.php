@@ -6,6 +6,11 @@ use RootCStar\FormBuilder\Forms\FormField;
 
 class NumberField extends FormField
 {
+    public function step(float $step): self
+    {
+        $this->config['step'] = $step;
+        return $this;
+    }
     public function min(int $min): self
     {
         $this->config['min'] = $min;
