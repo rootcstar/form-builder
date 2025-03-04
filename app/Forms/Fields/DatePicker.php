@@ -5,13 +5,13 @@ use RootCStar\FormBuilder\Forms\FormField;
 
 class DatePicker extends FormField{
 
-    public function min(int $min): self
+    public function min(string $min): self
     {
         $this->config['min'] = $min;
         return $this;
     }
 
-    public function max(int $max): self
+    public function max(string $max): self
     {
         $this->config['max'] = $max;
         return $this;
