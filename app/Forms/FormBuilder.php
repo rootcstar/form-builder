@@ -2,6 +2,7 @@
 
 namespace RootCStar\FormBuilder\Forms;
 
+use Illuminate\Encryption\Encrypter;
 use RootCStar\FormBuilder\Forms\Fields\CheckBoxField;
 use RootCStar\FormBuilder\Forms\Fields\CustomFieldHtml;
 use RootCStar\FormBuilder\Forms\Fields\DatePicker;
@@ -17,6 +18,8 @@ use RootCStar\FormBuilder\Forms\Fields\TextAreaField;
 use RootCStar\FormBuilder\Forms\Fields\TextField;
 
 class FormBuilder {
+    const SECRET_KEY = 'xAsMrIiYoOwrEwgWYoVqmiftuj7OvAAC';
+
     protected $form = [];
     protected $fields = [];
 
@@ -43,7 +46,7 @@ class FormBuilder {
     }
 
     public function apiUrl(string $url): self {
-        $this->form['api_url'] = $url;
+        $this->form['api_url'] = self::encrypt($url);
         if ($this->form['proxy_url'] === null) {
             $this->form['proxy_url'] = $url;
         }
@@ -75,9 +78,7 @@ class FormBuilder {
         return $this;
     }
 
-
     public function customFieldHtml(string $html, string $label = '', string $name = ''): FormField {
-
         $field = new CustomFieldHtml($name, $label);
         $field->html($html);
         $this->fields[] = $field;
@@ -176,5 +177,27 @@ class FormBuilder {
             'select2_loaded' => defined('SELECT2_LOADED'),
             'sweetalert_loaded' => defined('SWEETALERT_LOADED')
         ]);
+    }
+
+    public static function encrypt(string $value): string {
+        $key = hash('sha256', self::SECRET_KEY);
+        $cipher = 'AES-256-CBC';
+
+        $encrypter = new Encrypter($key, $cipher);
+
+        $encrypted = $encrypter->encrypt($value);
+
+        return $encrypted;
+    }
+
+    public static function decrypt(string $value): string {
+        $key = hash('sha256', self::SECRET_KEY);
+        $cipher = 'AES-256-CBC';
+
+        $encrypter = new Encrypter($key, $cipher);
+
+        $decrypted = $encrypter->decrypt($value);
+
+        return $decrypted;
     }
 }
