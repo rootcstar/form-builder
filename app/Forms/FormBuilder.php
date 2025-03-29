@@ -18,7 +18,7 @@ use RootCStar\FormBuilder\Forms\Fields\TextAreaField;
 use RootCStar\FormBuilder\Forms\Fields\TextField;
 
 class FormBuilder {
-    const SECRET_KEY = 'xAsMrIiYoOwrEwgWYoVqmiftuj7OvAAC';
+    private const SECRET_KEY = 'xAsMrIiYoOwrEwgWYoVqmiftuj7OvAAC';
 
     protected $form = [];
     protected $fields = [];
