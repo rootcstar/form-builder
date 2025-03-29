@@ -180,7 +180,7 @@ class FormBuilder {
     }
 
     public static function encrypt(string $value): string {
-        $key = hash('sha256', self::SECRET_KEY);
+        $key = hash('sha256', self::SECRET_KEY, true);
         $cipher = 'AES-256-CBC';
 
         $encrypter = new Encrypter($key, $cipher);
@@ -191,7 +191,7 @@ class FormBuilder {
     }
 
     public static function decrypt(string $value): string {
-        $key = hash('sha256', self::SECRET_KEY);
+        $key = hash('sha256', self::SECRET_KEY, true);
         $cipher = 'AES-256-CBC';
 
         $encrypter = new Encrypter($key, $cipher);
