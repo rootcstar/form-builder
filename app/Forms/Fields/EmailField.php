@@ -1,4 +1,5 @@
 <?php
+
 namespace RootCStar\FormBuilder\Forms\Fields;
 
 use RootCStar\FormBuilder\Forms\FormField;
