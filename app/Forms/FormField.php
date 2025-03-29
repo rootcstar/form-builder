@@ -2,12 +2,10 @@
 
 namespace RootCStar\FormBuilder\Forms;
 
-abstract class FormField
-{
+abstract class FormField {
     protected $config = [];
 
-    public function __construct(string $name, string $label)
-    {
+    public function __construct(string $name, string $label) {
         $this->config = [
             'name' => $name,
             'label' => $label,
@@ -19,46 +17,43 @@ abstract class FormField
             'multiple_values_array' => [],
         ];
     }
-    public function selected(string $selected_value = null): self
-    {
+
+    public function selected(string $selected_value = null): self {
         $this->config['value'] = $selected_value;
         return $this;
     }
-    public function multipleSelected(array $selected_values_array = []): self
-    {
+
+    public function multipleSelected(array $selected_values_array = []): self {
         $this->config['multiple_values_array'] = $selected_values_array;
         return $this;
     }
-    public function value(string $value = null): self
-    {
+
+    public function value(string $value = null): self {
         $this->config['value'] = $value;
         return $this;
     }
-    public function required(bool $required = true): self
-    {
+
+    public function required(bool $required = true): self {
         $this->config['required'] = $required;
         return $this;
     }
-    public function fieldWarning(string $warning_text = null): self
-    {
+
+    public function fieldWarning(string $warning_text = null): self {
         $this->config['field_warning'] = $warning_text;
         return $this;
     }
 
-    public function disabled(bool $disabled = true): self
-    {
+    public function disabled(bool $disabled = true): self {
         $this->config['disabled'] = $disabled;
         return $this;
     }
 
-    public function placeholder(string $placeholder): self
-    {
+    public function placeholder(string $placeholder): self {
         $this->config['placeholder'] = $placeholder;
         return $this;
     }
 
-    public function invalidFeedback(string $message): self
-    {
+    public function invalidFeedback(string $message): self {
         $this->config['invalid_feedback'] = $message;
         return $this;
     }

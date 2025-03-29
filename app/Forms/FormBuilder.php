@@ -1,19 +1,21 @@
 <?php
 
 namespace RootCStar\FormBuilder\Forms;
-use RootCStar\FormBuilder\Forms\Fields\DatePicker;
-use RootCStar\FormBuilder\Forms\Fields\EmailField;
-use RootCStar\FormBuilder\Forms\Fields\TextField;
-use RootCStar\FormBuilder\Forms\Fields\NumberField;
-use RootCStar\FormBuilder\Forms\Fields\SelectField;
-use RootCStar\FormBuilder\Forms\Fields\Select2Field;
-use RootCStar\FormBuilder\Forms\Fields\FileUploadField;
-use RootCStar\FormBuilder\Forms\Fields\TextAreaField;
+
 use RootCStar\FormBuilder\Forms\Fields\CheckBoxField;
 use RootCStar\FormBuilder\Forms\Fields\CustomFieldHtml;
-use RootCStar\FormBuilder\Forms\Fields\TelephoneField;
-use RootCStar\FormBuilder\Forms\Fields\PasswordField;
+use RootCStar\FormBuilder\Forms\Fields\DatePicker;
+use RootCStar\FormBuilder\Forms\Fields\EmailField;
+use RootCStar\FormBuilder\Forms\Fields\FileUploadField;
 use RootCStar\FormBuilder\Forms\Fields\HiddenField;
+use RootCStar\FormBuilder\Forms\Fields\NumberField;
+use RootCStar\FormBuilder\Forms\Fields\PasswordField;
+use RootCStar\FormBuilder\Forms\Fields\Select2Field;
+use RootCStar\FormBuilder\Forms\Fields\SelectField;
+use RootCStar\FormBuilder\Forms\Fields\TelephoneField;
+use RootCStar\FormBuilder\Forms\Fields\TextAreaField;
+use RootCStar\FormBuilder\Forms\Fields\TextField;
+
 class FormBuilder {
     protected $form = [];
     protected $fields = [];
@@ -72,8 +74,6 @@ class FormBuilder {
         $this->form['api_method'] = $method;
         return $this;
     }
-
-
 
 
     public function customFieldHtml(string $html, string $label = '', string $name = ''): FormField {
