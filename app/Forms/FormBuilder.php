@@ -45,8 +45,8 @@ class FormBuilder {
         return $this;
     }
 
-    public function apiUrl(string $url): self {
-        $this->form['api_url'] = self::encrypt($url);
+    public function apiUrl(string $url, bool $encrypt = true): self {
+        $this->form['api_url'] = $encrypt ? self::encrypt($url) : $url;
         if ($this->form['proxy_url'] === null) {
             $this->form['proxy_url'] = $url;
         }
